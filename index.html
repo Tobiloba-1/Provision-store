@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="parent">
+
+        <div id="form">
+            <form method="post" id="forms" onsubmit="return generatereceipt()">
+            <img src="tobex.jpg">
+            <h3 id="h3">Tobiloba Provision Store.</h3>
+                <label for="fullname" id="fname">Fullname</label><br>
+                <input type="text" name="fullname" id="fullname" placeholder="Customer Name" oninput="generatereceipt()" maxlength="20" required><br><br>
+
+                <label for="item1" id="item" >ITEMS</label><br>
+                <select name="item1" onchange="generatereceipt()" id="item1" required>
+                    <option value="">--Select Item--</option>
+                    <option value="Sugar">Sugar</option>
+                    <option value="Garri">Garri</option>
+                    <option value="Kulikuli">Kulikuli</option>
+                    <option value="Groundnut">Groundnut</option>
+                    <option value="Fish">Fish</option>
+                </select>
+
+                <input type="number" name="price1" id="price1" placeholder="Price" required oninput="generatereceipt()">
+
+                <input type="number" name="qty1" id="qty1" placeholder="Quantity" oninput="generatereceipt()" required>
+
+                <input type="number" oninput="generatereceipt()" name="total1" id="total1" placeholder="Total" required readonly><br><br>
+
+                <label for="item1" id="item">ITEMS</label><br>g
+                <select name="item2" onchange="generatereceipt()" id="item2" required>
+                    <option value="">--Select Item--</option>
+                    <option value="Sugar">Sugar</option>
+                    <option value="Garri">Garri</option>
+                    <option value="Kulikuli">Kulikuli</option>
+                    <option value="Groundnut">Groundnut</option>
+                    <option value="Fish">Fish</option>
+                </select>
+
+                <input type="number" name="price2" id="price2" oninput="generatereceipt()" placeholder="Price" required>
+
+                <input type="number" oninput="generatereceipt()" name="qty2" id="qty2" placeholder="Quantity" required>
+
+                <input type="number" oninput="generatereceipt()" name="total2" id="total2" placeholder="Total" required readonly><br><br>
+
+                <label for="totalpurchase" id="tpur">Total Purchase</label><br>
+                <input type="number" oninput="generatereceipt()" name="totalpurchase" id="totalpurchase" placeholder="Total Purchase" required readonly>
+
+                <label for="discount" id="dct">Discount</label><br>
+                <select name="discount" id="discount" onchange="generatereceipt()">
+                    <option value="">--Select Discount--</option>
+                    <option value="0.05">5%</option>
+                    <option value="0.075">7.5%</option>
+                    <option value="0.1">10%</option>
+                    <option value="0.15">15%</option>
+                </select> <br><br>
+
+                <label for="grandtotal" id="gtotal">Grand Total</label><br>
+                <input type="number" oninput="generatereceipt()" name="grandtotal" id="grandtotal" placeholder="Grand Total" required readonly><br><br>
+
+                <input type="submit" name="submit" id="btn" value="Generate Receipt">
+            </form>
+
+            <script type="text/javascript">
+
+                document.getElementById("form").addEventListener("submit", function(event) {
+                    event.preventDefault(); 
+                    let customer_name = document.getElementById("fullname").value;
+
+                    let item1 = document.getElementById("item1").value;
+                    let price1 = document.getElementById("price1").value;
+                    let qty1 = document.getElementById("qty1").value;
+
+                    let total1 = price1 * qty1;
+                    document.getElementById("total1").value = total1;
+
+                    let item2 = document.getElementById("item2").value;
+                    let price2 = document.getElementById("price2").value;
+                    let qty2 = document.getElementById("qty2").value;
+
+                    let total2 = price2 * qty2;
+                    document.getElementById("total2").value = total2;
+
+                    let totalpurchase= total1 + total2;
+
+                    document.getElementById("totalpurchase").value=totalpurchase;
+
+                    let discount = document.getElementById("discount").value;
+
+                    let discountcal =  discount * totalpurchase ;
+                    let grandtotal =  totalpurchase - discountcal ;
+
+                    document.getElementById("grandtotal").value=grandtotal;
+
+                    document.getElementById("cn").innerHTML=customer_name;
+
+                    document.getElementById("it1").innerHTML=item1;
+                    document.getElementById("p1").innerHTML=price1;
+                    document.getElementById("q1").innerHTML=qty1;
+                    document.getElementById("t1").innerHTML=total1;
+
+                    document.getElementById("it2").innerHTML=item2;
+                    document.getElementById("p2").innerHTML=price2;
+                    document.getElementById("q2").innerHTML=qty2;
+                    document.getElementById("t2").innerHTML=total2;
+
+                    document.getElementById("tp").innerHTML=totalpurchase;
+                    document.getElementById("disc").innerHTML=discountcal;
+                    document.getElementById("gt").innerHTML=grandtotal;
+                })
+
+            </script>
+
+        </div>
+
+
+        <div id="receipt">
+
+            <table id="table">
+
+                <tr>
+                    <td id="tr" colspan="4">Transaction Receipt</td>
+                </tr>
+        
+                <tr>
+                    <td colspan="2" >Customer Name:</td>
+                    <td colspan="2" id="cn"></td>
+                </tr>
+        
+                    <tr>
+                        <td>Item</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Total</td>
+                    </tr>
+                    <tr>
+                        <td id="it1"></td>
+                        <td id="p1"></td>
+                        <td id="q1"></td>
+                        <td id="t1"></td>
+                    </tr>
+                    <tr>
+                        <td id="it2"></td>
+                        <td id="p2"></td>
+                        <td id="q2"></td>
+                        <td id="t2"></td>
+                    </tr>
+        
+                    <tr>
+                        <td colspan="2">Total Amount:</td>
+                        <td colspan="2" id="tp"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Discount:</td>
+                        <td colspan="2" id="disc"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Grand Total:</td>
+                        <td colspan="2" id="gt"></td>
+                    </tr>
+        
+        
+            </table>
+
+        </div>
+
+
+    </div>
+    
+</body>
+</html>
